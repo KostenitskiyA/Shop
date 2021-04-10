@@ -1,0 +1,92 @@
+﻿@using Shop.Pages.Shared
+@model _LayoutModel
+
+<!DOCTYPE html>
+<html class="w-100 h-100">
+<head>
+    @*<meta name="viewport" content="width=device-width" />*@
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/lib/css/style.css" />
+    <link rel="stylesheet" href="~/lib/css/bootstrap.min.css" />
+</head>
+    <body style="width: 100%; height: 100%; background-color:#edeef0;">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-bottom: 20px;">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">Shop</a>
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-page="Index">Home</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Catalog
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    @foreach (var category in Model.Categories)
+                                    {
+                                        <li><a class="dropdown-item" asp-page="Search" asp-page-handler="ByCategory" asp-route-id="@category.Id">@category.Name</a></li>
+                                    }
+                                </ul>
+                            </li>
+                            @if (User.IsInRole("Администратор"))
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Users
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" asp-page="./Users">Users</a></li>
+                                        <li><a class="dropdown-item" asp-page="./Users/Create">Create User</a></li>
+                                    </ul>
+                                </li>
+                            }
+                        </ul>
+
+                        <form class="d-flex" method="get" asp-page="Search" asp-page-handler="ByQuery" asp-route-query="@Model.Query">
+                            <input class="form-control me-2" type="search" placeholder="Поиск" asp-for="@Model.Query">
+                            <button class="btn btn-outline-success" type="submit">Поиск</button>
+                        </form>
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <button class="btn btn-primary" type="button">
+                                Корзина
+                                <span class="badge bg-secondary">@Model.Products.Count</span>
+                            </button>
+                            <form method="post" asp-page-handler="LogOut">
+                                <button class="btn btn-primary" type="submit">
+                                    Выйти
+                                </button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form method="get" asp-page="Registration">
+                                <button class="btn btn-primary" type="submit">
+                                    Зарегестрироваться
+                                </button>
+                            </form>
+                            <form method="get" asp-page="Authorization">
+                                <button class="btn btn-primary" type="submit">
+                                    Войти
+                                </button>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </nav>
+
+        <div>
+            @RenderBody()
+        </div>
+
+        <script src="~/lib/js/bootstrap.min.js"></script>
+    </body>
+</html>

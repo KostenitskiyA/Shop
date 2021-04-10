@@ -1,0 +1,52 @@
+﻿@page "{query?}"
+@model Shop.Pages.SearchModel
+
+<div class="row">
+    <div class="col-4">
+        <div class="form-control">
+            <label>Категория</label>
+            <input class="form-control" type="text" />
+        </div>
+        <div class="form-control">
+            <label>Компания</label>
+            <input class="form-control" type="text" />
+        </div>
+    </div>
+    <div class="col-8">
+        @if (Model.Products != null)
+        {
+            <div class="form-control w-100">
+                <p>Результатов по вашему запросу @Model.Products.Count</p>
+            </div>
+        }
+
+        <div class="d-flex flex-column bd-highlight mb-3">
+            @foreach (var product in Model.Products)
+            {
+                <div class="card" style="height: 200px; margin-bottom: 10px;">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            @if (product.Image == null)
+                            {
+                                <img class="card-img" style="width: 200px; height: 200px;" src="~/img/empty_img.png">
+                            }
+                            else
+                            {
+                                <img class="card-img" style="width: 200px; height: 200px;" src="...">
+                            }
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">@product.Name</h5>
+                                <p class="card-text">@product.Description</p>
+                                <p class="card-text">@product.Price</p>
+                                <a class="btn btn-primary" asp-page="Product" asp-page-handler="ProductById" asp-route-id="@product.Id">Подробнее</a>
+                                <a class="btn btn-primary" asp-page-handler="Buy" asp-route-id="@product.Id">Купить</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

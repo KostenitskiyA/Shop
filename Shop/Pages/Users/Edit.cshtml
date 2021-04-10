@@ -1,0 +1,17 @@
+﻿@page "{id}"
+@model Shop.Pages.EditModel
+
+<form method="post" asp-page-handler="Edit">
+    <div class="form-group">
+        <label asp-for="User.Name"></label>
+        <input class="form-control" type="text" asp-for="User.Name" />
+
+        <label>Роль</label>
+        <select class="form-control">
+        </select>
+
+        <label asp-for="User.CreateDate"></label>
+        <input class="form-control"/>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

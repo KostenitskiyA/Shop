@@ -1,0 +1,14 @@
+﻿@page
+@model Shop.Pages.AuthorizationModel
+
+<div class="container d-flex align-items-center w-25 h-100">
+    <form class="form-control" method="post" asp-page-handler="Authorization">
+        <div class="form-group" style="margin-bottom: 5px;">
+            <label asp-for="Authorization.Login"></label>
+            <input class="form-control" type="text" asp-for="Authorization.Login" />
+            <label asp-for="Authorization.Password"></label>
+            <input class="form-control" type="password" asp-for="Authorization.Password" />
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

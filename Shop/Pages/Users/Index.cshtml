@@ -1,0 +1,31 @@
+﻿@page
+@model Shop.Pages.User.IndexModel
+
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Role</th>
+            <th>CreateDate</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td>@user.Id</td>
+                <td>@user.Name</td>
+                <td>@user.Role.Name | @user.RoleId</td>
+                <td>@user.CreateDate.ToShortDateString()</td>
+                <td>
+                    <form method="post">
+                        <a asp-page="./Edit" asp-route-id="@user.Id">Edit</a>
+                        <button type="submit" asp-page-handler="Delete" asp-route-id="@user.Id">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

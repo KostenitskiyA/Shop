@@ -1,0 +1,29 @@
+﻿@page
+@model Shop.Pages.CreateModel
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-page="Index">Home</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            Create user
+        </li>
+    </ol>
+</nav>
+
+<form method="post" asp-page="Create" asp-page-handler="Create">
+    <div class="form-group">
+        <label asp-for="User.Name"></label>
+        <input class="form-control" type="text" asp-for="User.Name" />
+
+        <label asp-for="User.Role.Name"></label>
+        <select class="form-select" asp-for="User.RoleId">
+            @foreach (var role in Model.Roles) 
+            { 
+                <option value="@role.Id">@role.Name</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
